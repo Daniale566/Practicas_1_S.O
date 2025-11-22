@@ -108,3 +108,48 @@ Aquí se prueba todo el sistema:
 La salida correcta debería ser algo como:
 
 <img width="681" height="204" alt="image" src="https://github.com/user-attachments/assets/85c03dbd-c23e-4d97-86b4-431c4a334904" />
+
+## Windows
+
+Pasos a seguir para la ejecucion correcta
+
+### Primera alternativa
+
+###1.	Abre la terminal MSYS2 MinGW x64
+
+Ve a la carpeta donde se clonó el proyecto. Asegúrate de tener gcc, ar y make instalados.
+En la primera alternativa usando el Makefile, entra en la carpeta Windows/src y ejecuta 
+mingw32-make clean y luego mingw32-make, lo cual generará la librería en la carpeta lib.
+
+###2. Luego compila el demo 
+
+Con el comando: gcc -Wall -Wextra -O2 -I../include main.c -L../lib -lproceso_par -o demo.exe -lws2_32.
+
+### 3. Después compila el programa de eco 
+
+Usando: gcc -Wall -Wextra -O2 eco_win.c -o eco.exe -lws2_32.
+
+### 4.	Para probar
+
+Ejecuta ./demo.exe o ./eco.exe según lo que quieras validar.
+
+ ##Segunda alternativa
+ ## 1. Abre nuevamente la terminal MSYS2 MinGW x64
+ 
+ Ve a la carpeta del proyecto. Como el código usa la cabecera <winsock2.h>, debes enlazar con la librería ws2_32.
+ en la carpeta Windows/src compila manualmente la librería con: gcc -c -Wall -Wextra -O2 -I../include proceso_par_win.c -o proceso_par_win.o 
+ y crea la librería con: ar rcs ../lib/libproceso_par.a proceso_par_win.o, lo cual generará el archivo libproceso_par.a en la carpeta lib.
+ 
+ ## 2.Luego compila el demo
+ 
+ Usando nuevamente: gcc -Wall -Wextra -O2 -I../include main.c -L../lib -lproceso_par -o demo.exe -lws2_32.
+ 
+## 3. Crear un archivo de prueba 
+
+Usar el comando cat desde la terminal, y luego compilar el programa de eco con: gcc -Wall -Wextra -O2 eco_win.c -o eco.exe -lws2_32.
+
+## 4. Finalmente 
+
+Prueba todo ejecutando ./demo.exe.
+
+
